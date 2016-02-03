@@ -4,7 +4,7 @@ module Geocoder
 
     ##
     # Distance calculation for use with a database that supports POWER(),
-    # SQRT(), PI(), and trigonometric functions SIN(), COS(), ASIN(),
+    # SQRT(), ACOS(-1), and trigonometric functions SIN(), COS(), ASIN(),
     # ATAN2(), DEGREES(), and RADIANS().
     #
     # Based on the excellent tutorial at:
@@ -15,9 +15,9 @@ module Geocoder
       earth = Geocoder::Calculations.earth_radius(units)
 
       "#{earth} * 2 * ASIN(SQRT(" +
-        "POWER(SIN((#{latitude.to_f} - #{lat_attr}) * PI() / 180 / 2), 2) + " +
-        "COS(#{latitude.to_f} * PI() / 180) * COS(#{lat_attr} * PI() / 180) * " +
-        "POWER(SIN((#{longitude.to_f} - #{lon_attr}) * PI() / 180 / 2), 2)" +
+        "POWER(SIN((#{latitude.to_f} - #{lat_attr}) * ACOS(-1) / 180 / 2), 2) + " +
+        "COS(#{latitude.to_f} * ACOS(-1) / 180) * COS(#{lat_attr} * ACOS(-1) / 180) * " +
+        "POWER(SIN((#{longitude.to_f} - #{lon_attr}) * ACOS(-1) / 180 / 2), 2)" +
       "))"
     end
 
